@@ -28,7 +28,7 @@ const Navbar: FC = () => {
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <Link className="dropdown-item" to="/perfil">Perfil</Link>
                             <Link className="dropdown-item" to="/eventos">Eventos</Link>
-                            <div className="btn btn-danger ">
+                            <div className="btn btn-danger ml-3 ">
                                 Cerrar Sesion
                             </div>
                         </div>

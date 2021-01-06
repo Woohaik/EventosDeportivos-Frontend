@@ -15,9 +15,9 @@ const EventFilter: FC = () => {
                     <a className="dropdown-item" href="/">Yee</a>
                 </div>
             </div>
-            <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                    <button className="btn btn-outline-success" type="button">Button</button>
+            <div className="input-group my-2">
+                <div className="search">
+                    <i className="fas fa-search"></i>
                 </div>
                 <input type="text" className="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" />
             </div>

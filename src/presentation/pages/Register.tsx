@@ -1,50 +1,93 @@
-import React, { FC } from 'react'
-
-
+import React, { FC, FormEvent, useState } from 'react'
+import { toRegisterCustomer } from "../../store/types"
+import { Link } from "react-router-dom";
+import { registerCustomerAction } from "../../store/actions/customerActions";
+import { useDispatch } from "react-redux";
 
 const Register: FC = () => {
+
+
+    const initialForm: toRegisterCustomer = {
+        name: "wilfredo",
+        lastname: "Mangote",
+        password: "1234",
+        dni: "sfgsqerdv",
+        email: "wilfredogmail.com"
+    }
+
+
+    const [formInfo, setFormInfo] = useState<toRegisterCustomer>(initialForm);
+
+
+    const dispatch = useDispatch();
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(registerCustomerAction(formInfo))
+    }
+
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let target = e.target;
+        let value = target.value;
+        let name = target.name;
+
+        const partial = {
+            ...formInfo,
+            [name]: value
+        };
+
+        setFormInfo(partial);
+    }
+
+
     return (
-
-        <form className="form-container">
-
+        <form onSubmit={handleSubmit} className="form-container">
+            {formInfo.name}
+            {formInfo.lastname}
+            {formInfo.email}
+            {formInfo.dni}
+            {formInfo.password}
+            <h1>Registrate</h1>
             <div className="form-group">
                 <label>Nombre</label>
-                <input type="text" className="form-control"
-                    placeholder="Enter email" />
+                <input onChange={handleInputChange} required name="name" type="text" value={formInfo.name} className="form-control"
+                    placeholder="Nombre" />
 
             </div>
 
             <div className="form-group">
                 <label>Apellido</label>
-                <input type="text" className="form-control"
-                    placeholder="Enter email" />
+                <input onChange={handleInputChange} required name="lastname" value={formInfo.lastname} type="text" className="form-control"
+                    placeholder="Apellido" />
 
             </div>
 
             <div className="form-group">
                 <label>DNI</label>
-                <input type="text" className="form-control"
-                    placeholder="Enter email" />
+                <input onChange={handleInputChange} required name="dni" value={formInfo.dni} type="text" className="form-control"
+                    placeholder="DNI" />
 
             </div>
 
             <div className="form-group">
                 <label>Correo Electronico</label>
-                <input type="email" className="form-control" aria-describedby="emailHelp"
-                    placeholder="Enter email" />
-                <small id="emailHelp" className="form-text text-muted">Garantizamos que vendemos tus datos admenos 3% menos que la
+                <input onChange={handleInputChange} required name="email" value={formInfo.email} type="email" className="form-control" aria-describedby="emailHelp"
+                    placeholder="Correo Electronico" />
+                <small className="form-text text-muted">Garantizamos que vendemos tus datos admenos 3% menos que la
           competencia</small>
             </div>
             <div className="form-group">
                 <label >Contraseña</label>
-                <input type="password" className="form-control" placeholder="Password" />
+                <input onChange={handleInputChange} required name="password" value={formInfo.password} type="password" className="form-control" placeholder="Contraseña" />
             </div>
             <div className="form-check">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                <input onChange={handleInputChange} type="checkbox" className="form-check-input" />
                 <label className="form-check-label" >Acepto el correo Spam</label>
             </div>
-
-            <button type="submit" className="btn btn-primary">Registrarme</button>
+            <div className="form-footer">
+                <button type="submit" className="btn btn-primary">Continuar</button>
+                <span className="form-text text-muted ">¿Ya tienes cuenta?    < Link to="/iniciar-sesion"> Inicia Sesion </Link> </span>
+            </div>
         </form>
 
 

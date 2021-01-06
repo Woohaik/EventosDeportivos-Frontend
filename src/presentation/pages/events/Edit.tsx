@@ -5,8 +5,9 @@ import React, { FC, Fragment } from 'react'
 const Edit: FC = () => {
     return (
         <Fragment>
-            <h1>Editar Evento</h1>
+
             <form className="form-container">
+                <h1>Editar Evento</h1>
                 <div className="form-group">
                     <label>Nombre</label>
                     <input type="text" className="form-control"
@@ -15,33 +16,29 @@ const Edit: FC = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Apellido</label>
+                    <label>Limite</label>
                     <input type="text" className="form-control"
                         placeholder="Enter email" />
 
                 </div>
 
                 <div className="form-group">
-                    <label>DNI</label>
+                    <label>Fecha de inicio</label>
                     <input type="text" className="form-control"
                         placeholder="Enter email" />
 
                 </div>
 
                 <div className="form-group">
-                    <label>Correo Electronico</label>
+                    <label>Fecha de Fin</label>
                     <input type="email" className="form-control" aria-describedby="emailHelp"
                         placeholder="Enter email" />
                     <small id="emailHelp" className="form-text text-muted">Garantizamos que vendemos tus datos admenos 3% menos que la
 competencia</small>
                 </div>
                 <div className="form-group">
-                    <label >Contraseña</label>
+                    <label >Tipo de Evento</label>
                     <input type="password" className="form-control" placeholder="Password" />
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" >Acepto el correo Spam</label>
                 </div>
 
                 <button type="submit" className="btn btn-primary">Registrarme</button>

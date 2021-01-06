@@ -5,9 +5,9 @@ import React, { FC, Fragment } from 'react'
 const EditProfile: FC = () => {
     return (
         <Fragment>
-            <h1>Editar mi Perfil</h1>
-            <form className="form-container">
 
+            <form className="form-container">
+                <h1>Editar mi Perfil</h1>
                 <div className="form-group">
                     <label>Nombre</label>
                     <input type="text" className="form-control"

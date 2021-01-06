@@ -1,23 +1,58 @@
-import React, { FC } from 'react'
-
-
-
+import React, { FC, FormEvent, useState } from 'react'
+import { tologinCustomer } from "../../store/types"
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginCustomer } from "../../store/actions/customerActions";
 const Login: FC = () => {
+
+    const initialForm: tologinCustomer = {
+        password: "1234",
+        email: "wilfredogmail.com"
+    }
+
+    const dispatch = useDispatch();
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(loginCustomer(formInfo))
+    }
+
+    const [formInfo, setFormInfo] = useState<tologinCustomer>(initialForm);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let target = e.target;
+        let value = target.value;
+        let name = target.name;
+        const partial = {
+            ...formInfo,
+            [name]: value
+        };
+        setFormInfo(partial);
+    }
+
+
+
+
     return (
-        <form className="form-container">
+        <form onSubmit={handleSubmit} className="form-container">
+            {formInfo.email}
+            {formInfo.password}
+
+            <h1>Inicia Sesion</h1>
             <div className="form-group">
                 <label>Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input required onChange={handleInputChange} value={formInfo.email} name="email" type="email" className="form-control" aria-describedby="emailHelp"
                     placeholder="Enter email" />
-                <small id="emailHelp" className="form-text text-muted">Garantizamos que vendemos tus datos admenos 3% menos que la
-          competencia</small>
             </div>
             <div className="form-group">
                 <label >Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                <input required onChange={handleInputChange} value={formInfo.password} name="password" type="password" className="form-control" placeholder="Password" />
             </div>
 
-            <button type="submit" className="btn btn-primary">Inicia sesión</button>
+
+            <div className="form-footer">
+                <button type="submit" className="btn btn-primary">Continuar</button>
+                <span className="form-text text-muted ">¿Aun no tienes cuenta?    < Link to="/registrarse"> Registrate</Link> </span>
+            </div>
+
         </form>
 
     );
