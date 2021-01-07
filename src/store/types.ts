@@ -23,11 +23,7 @@ export const SET_ALERT = "SET_ALERT";
 export const CLOSE_ALERT = "CLOSE_ALERT";
 
 
-
-
-
 // Clientes
-
 export type tologinCustomer = {
     email: string;
     password: string;
@@ -88,7 +84,7 @@ export type event = {
     name: string;
     limit: number;
     start: Date;
-    Finish: Date;
+    finish: Date;
     eventType: Eventtype;
     freeSpaces?: number;
 }
@@ -121,8 +117,8 @@ export type reservation = {
     id: number;
     quantity: number;
     boughtTime: Date;
-    customerId: number;
-    eventid: number;
+    customerId?: number;
+    eventid?: number;
     reservationEvent?: event;
     reservationCustomer?: customer
 }

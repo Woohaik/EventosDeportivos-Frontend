@@ -9,9 +9,6 @@ import { getEventsAction } from "../../store/actions/eventActions";
 // components
 import EventCard from "./../components/events/EventCard";
 import EventFilter from "./../components/events/EventFilter";
-import { event } from '../../store/types';
-
-const ttt: number[] = [1, 2, 45, 5, 4, 1, 41, 5];
 
 const Home: FC = () => {
 
@@ -30,7 +27,7 @@ const Home: FC = () => {
                 {
                     allTheEvents.map(cardEvent =>
                     (
-                        <div className="col-md-4 my-3">
+                        <div className="col-md-6 col-lg-4 col-sm-12 my-3">
                             <EventCard event={cardEvent} />
                         </div>
                     ))

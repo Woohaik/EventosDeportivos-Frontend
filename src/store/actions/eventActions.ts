@@ -12,37 +12,45 @@ import { setAlert, setErrorEx } from "./alertActions";
 
 const fakeEvents: event[] = [
     {
-        id: 0,
-        name: "Super Evento de supre event",
-        Finish: new Date(),
-        start: new Date(),
-        limit: 8,
-        eventType: Eventtype.FUTBOL
-    },
-    {
         id: 1,
-        name: "OLV ESTO ES MAS PRO",
-        Finish: new Date(),
+        name: "Super Evento de supre event",
+        finish: new Date(),
         start: new Date(),
         limit: 8,
         eventType: Eventtype.FUTBOL
     },
     {
         id: 2,
+        name: "OLV ESTO ES MAS PRO",
+        finish: new Date(),
+        start: new Date(),
+        limit: 8,
+        eventType: Eventtype.ATLETISMO
+    },
+    {
+        id: 3,
         name: "Dale bien perro",
-        Finish: new Date(),
+        finish: new Date(),
         start: new Date(),
         limit: 8,
         eventType: Eventtype.FUTBOL
     }, {
-        id: 3,
+        id: 4,
         name: "Otro evento fake gracias",
-        Finish: new Date(),
+        finish: new Date(),
         start: new Date(),
         limit: 8,
-        eventType: Eventtype.FUTBOL
+        eventType: Eventtype.VOLEIBOL
+    }, {
+        id: 5,
+        name: "Wiuwiu theLastEv",
+        finish: new Date(),
+        start: new Date(),
+        limit: 15,
+        eventType: Eventtype.BALONCESTO
     }
 ]
+
 
 export const getEventsAction = (): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
@@ -50,7 +58,7 @@ export const getEventsAction = (): ThunkAction<void, RootState, null, EventActio
             //  const theEvents = await axiosHttp.get("/event");
             //   const events: event[] = theEvents.data;
 
-            const events: event[] = fakeEvents;
+            let events: event[] = fakeEvents;
             dispatch({ type: GET_EVENTS, events: events });
 
 

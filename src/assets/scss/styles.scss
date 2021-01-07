@@ -92,3 +92,44 @@
         margin-right: 15px;
     }
 }
+
+.card-img-top {
+    object-fit: cover;
+    height: 150px;
+    transition: all 0.5s;
+}
+
+.event-card {
+    overflow: hidden;
+    transition: all 0.5s;
+    position: relative;
+    height: 320px;
+    max-height: 320px !important;
+
+    &:hover {
+        margin-bottom: 0px;
+    }
+    img {
+        cursor: pointer;
+        &:hover {
+            height: 280px;
+            & + div {
+                top: 270px;
+            }
+        }
+    }
+    &__body {
+        width: 100%;
+        padding: 15px;
+        position: absolute;
+        top: 150px;
+        background-color: white;
+        transition: all 0.5s;
+        &__type {
+            position: absolute;
+            color: rgb(0, 0, 0);
+            right: 20px;
+            top: 15px;
+        }
+    }
+}
