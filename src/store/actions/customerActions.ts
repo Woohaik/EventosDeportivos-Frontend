@@ -3,7 +3,7 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "..";
 import axiosHttp from "./http"
 
-import { setAlert } from "./alertActions"
+import { setAlert, setErrorEx } from "./alertActions"
 
 export const registerCustomerAction = (customer: toRegisterCustomer): ThunkAction<void, RootState, null, CustomerAction> => {
     return async (dispatch) => {
@@ -11,18 +11,17 @@ export const registerCustomerAction = (customer: toRegisterCustomer): ThunkActio
         try {
             const theCusomer = await axiosHttp.post("/customer", customer);
             console.log(theCusomer);
-            dispatch({ type: REGISTER_CUSTOMER, toRegisterCustomer: customer });
             dispatch(setAlert("Usuario Registrado", "success"));
-        } catch (error: any) {
-            const theEx = error.response.data;
-            dispatch(setAlert(theEx.exList.length === 0 ? theEx.mainMessage : theEx.exList[0], "danger"));
+            dispatch({ type: REGISTER_CUSTOMER, toRegisterCustomer: customer }); // TODO cambiarlo a return 
 
+        } catch (error: any) {
+            dispatch(setErrorEx(error));
         }
     }
 }
 
 
-export const loginCustomer = (customer: tologinCustomer): ThunkAction<void, RootState, null, CustomerAction> => {
+export const loginCustomerAction = (customer: tologinCustomer): ThunkAction<void, RootState, null, CustomerAction> => {
     return async (dispatch) => {
         try {
             const theCusomer = await axiosHttp.post("/login", customer);
@@ -30,9 +29,7 @@ export const loginCustomer = (customer: tologinCustomer): ThunkAction<void, Root
             dispatch(setAlert("Inicio de sesion correcto", "success"));
 
         } catch (error: any) {
-            console.log(error.response);
-            const theEx = error.response.data;
-            dispatch(setAlert(theEx.exList.length === 0 ? theEx.mainMessage : theEx.exList[0], "danger"));
+            dispatch(setErrorEx(error));
         }
     }
 }

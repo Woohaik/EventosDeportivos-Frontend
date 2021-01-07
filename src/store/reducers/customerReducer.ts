@@ -1,7 +1,5 @@
+import { CustomerState, CustomerAction, EDIT_CUSTOMER } from "../types";
 
-import { Reducer } from "redux"
-
-import { CustomerState, CustomerAction, REGISTER_CUSTOMER, EDIT_CUSTOMER } from "../types";
 const initialState: CustomerState = {
     customer: {
         token: "",
@@ -14,10 +12,11 @@ const initialState: CustomerState = {
 }
 
 
-const customerReducer = (state = initialState, action: CustomerAction): CustomerState => {
+const customerReducer = (state: CustomerState = initialState, action: CustomerAction): CustomerState => {
 
     switch (action.type) {
-
+        case EDIT_CUSTOMER:
+            return state;
         default: return state;
     }
 }

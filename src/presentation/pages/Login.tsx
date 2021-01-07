@@ -2,7 +2,7 @@ import React, { FC, FormEvent, useState } from 'react'
 import { tologinCustomer } from "../../store/types"
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginCustomer } from "../../store/actions/customerActions";
+import { loginCustomerAction } from "../../store/actions/customerActions";
 const Login: FC = () => {
 
     const initialForm: tologinCustomer = {
@@ -13,7 +13,7 @@ const Login: FC = () => {
     const dispatch = useDispatch();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(loginCustomer(formInfo))
+        dispatch(loginCustomerAction(formInfo))
     }
 
     const [formInfo, setFormInfo] = useState<tologinCustomer>(initialForm);

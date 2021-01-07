@@ -1,5 +1,4 @@
 import { AlertState, AlertAction, SET_ALERT, CLOSE_ALERT } from "../types";
-import { Reducer } from "redux"
 
 const initialState: AlertState = {
     color: "",

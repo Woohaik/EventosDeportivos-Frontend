@@ -76,7 +76,7 @@ export interface CustomerState {
 
 // Eventos
 
-enum Eventtype {
+export enum Eventtype {
     FUTBOL = 1,
     BALONCESTO = 2,
     VOLEIBOL = 3,
@@ -108,11 +108,12 @@ interface EditEventAction {
     type: typeof EDIT_EVENT;
     event: event;
 }
-interface GetEventAction {
+interface GetEventsAction {
     type: typeof GET_EVENTS;
+    events: event[];
 }
 
-export type EventAction = CreateEventAction | DeleteEventAction | GetEventAction | EditEventAction;
+export type EventAction = CreateEventAction | DeleteEventAction | GetEventsAction | EditEventAction;
 
 // Reservaciones
 
@@ -133,6 +134,7 @@ export interface ReservationState {
 
 interface GetReservationsAction {
     type: typeof GET_RESERVATIONS;
+    reservations: reservation[];
 }
 interface DeleteReservationAction {
     type: typeof DELETE_RESERVATION;
