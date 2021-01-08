@@ -38,14 +38,21 @@ export type customer = {
     email: string;
 }
 
-export type authCustomer =
-    customer & {
-        token: string;
-    }
+
+
+
+export type logedCustomer = {
+    customer: customer;
+    token: string;
+    refreshToken: string;
+}
+
+
 
 export type toRegisterCustomer =
     customer & {
         password: string;
+
     }
 
 
@@ -56,7 +63,7 @@ interface RegisterCustomerAction {
 
 interface LoginCustomerAction {
     type: typeof LOGIN_CUSTOMER;
-    tologinCustomer: tologinCustomer;
+    logedCustomer: logedCustomer;
 }
 
 interface EditCustomerAction {
@@ -64,10 +71,14 @@ interface EditCustomerAction {
     toUEditCustomer: toRegisterCustomer;
 }
 
-export type CustomerAction = RegisterCustomerAction | LoginCustomerAction | EditCustomerAction;
+interface DeleteCustomerAction {
+    type: typeof DELETE_CUSTOMER;
+}
+
+export type CustomerAction = RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction;
 
 export interface CustomerState {
-    customer: authCustomer;
+    customer: customer; token: string;
 }
 
 // Eventos
