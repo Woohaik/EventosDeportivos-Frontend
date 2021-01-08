@@ -133,3 +133,15 @@
         }
     }
 }
+
+
+.btn{
+    min-height: 35px !important;
+}
+
+.card-title{
+    overflow: hidden;
+    max-width: 23ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

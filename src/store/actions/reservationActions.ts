@@ -1,12 +1,14 @@
-import { ReservationAction, CREATE_RESERVATION, DELETE_RESERVATION, GET_RESERVATIONS, Eventtype } from "../types";
+import { ReservationAction, GET_RESERVATIONS, Eventtype } from "../types";
 
 import { reservation } from "../types"
 
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "..";
-import axiosHttp from "./http";
+// import axiosHttp from "./http";
 
 import { setAlert, setErrorEx } from "./alertActions";
+
+
 
 const fakeReservations: reservation[] = [
     {

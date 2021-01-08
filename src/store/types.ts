@@ -99,6 +99,7 @@ interface CreateEventAction {
 }
 interface DeleteEventAction {
     type: typeof DELETE_EVENT;
+    id: number;
 }
 interface EditEventAction {
     type: typeof EDIT_EVENT;

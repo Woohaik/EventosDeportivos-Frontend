@@ -12,6 +12,7 @@ import EventTable from "../../components/events/EventTable"
 const Events: FC = () => {
 
     const dispatch: Dispatch<any> = useDispatch();
+
     dispatch(getEventsAction());
 
     return (

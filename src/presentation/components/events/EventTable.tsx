@@ -2,13 +2,18 @@ import React, { FC, Fragment } from 'react'
 import { Link } from "react-router-dom"
 import { RootState } from "../../../store";
 import { useSelector } from "react-redux";
-
+import { deleteEventAction } from "../../../store/actions/eventActions";
 import { event, Eventtype } from '../../../store/types';
 import { dateFormater } from "../../../utils"
-
+import { useDispatch } from "react-redux";
 
 const EventTable: FC = () => {
+    const dispatch = useDispatch();
     const allTheEvents: event[] = useSelector((state: RootState) => state.event.events);
+
+    const handleCancel = (id: number = 0) => {
+        dispatch(deleteEventAction(id));
+    }
     return (
         <Fragment>
             <div className="table-responsive">
@@ -27,17 +32,17 @@ const EventTable: FC = () => {
                         {
                             allTheEvents.map(event =>
                             (
-                                <tr>
+                                <tr key={event.id}>
                                     <td>{event.name}</td>
                                     <td>{Eventtype[event.eventType]}</td>
                                     <td>{event.limit}</td>
                                     <td>{dateFormater(event.start)}</td>
                                     <td>{dateFormater(event.finish)}</td>
                                     <td>
-                                        <Link to="/eventos/editar">
+                                        <Link to={`/eventos/editar/${event.id}`}>
                                             <button className="btn btn-warning">Editar</button>
                                         </Link>
-                                        <button className="btn btn-danger">Cancelar</button>
+                                        <button type="button" onClick={() => handleCancel(event.id)} className="btn btn-danger">Cancelar</button>
                                     </td>
                                 </tr>
                             ))

@@ -8,7 +8,7 @@ import CustomerPurchases from "./pages/Purchases";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import EventList from "./pages/events/Events";
-import EditEvent from "./pages/events/Edit";
+
 import CreateEvent from "./pages/events/New";
 
 const RouterView: FC = () => {
@@ -22,7 +22,7 @@ const RouterView: FC = () => {
             <Route path="/todas-reservas" exact component={CustomerPurchases} />
             <Route path="/eventos" exact component={EventList} />
             <Route path="/eventos/crear" exact component={CreateEvent} />
-            <Route path="/eventos/editar" exact component={EditEvent} />
+            <Route path="/eventos/editar/:id" exact component={CreateEvent } />
             <Route path="/404" exact component={T404} />
             <Redirect to="/404" />
         </Switch>

@@ -3,10 +3,10 @@
 import React, { FC } from 'react';
 import { event, Eventtype } from "../../../store/types";
 
-import FUTBOL from "./../../../assets/deportes/FUTBOL.jpg";
-import BALONCESTO from "./../../../assets/deportes/BALONCESTO.jpg";
-import VOLEIBOL from "./../../../assets/deportes/VOLEIBOL.jpg";
-import ATLETISMO from "./../../../assets/deportes/ATLETISMO.jpg";
+import FUTBOL from "./../../../assets/deportes/futbol.jpg";
+import BALONCESTO from "./../../../assets/deportes/baloncesto.jpg";
+import VOLEIBOL from "./../../../assets/deportes/voleibol.jpg";
+import ATLETISMO from "./../../../assets/deportes/atletismo.jpg";
 
 
 
