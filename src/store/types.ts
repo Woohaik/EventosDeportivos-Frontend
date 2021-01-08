@@ -23,11 +23,7 @@ export const SET_ALERT = "SET_ALERT";
 export const CLOSE_ALERT = "CLOSE_ALERT";
 
 
-
-
-
 // Clientes
-
 export type tologinCustomer = {
     email: string;
     password: string;
@@ -76,7 +72,7 @@ export interface CustomerState {
 
 // Eventos
 
-enum Eventtype {
+export enum Eventtype {
     FUTBOL = 1,
     BALONCESTO = 2,
     VOLEIBOL = 3,
@@ -88,7 +84,7 @@ export type event = {
     name: string;
     limit: number;
     start: Date;
-    Finish: Date;
+    finish: Date;
     eventType: Eventtype;
     freeSpaces?: number;
 }
@@ -108,11 +104,12 @@ interface EditEventAction {
     type: typeof EDIT_EVENT;
     event: event;
 }
-interface GetEventAction {
+interface GetEventsAction {
     type: typeof GET_EVENTS;
+    events: event[];
 }
 
-export type EventAction = CreateEventAction | DeleteEventAction | GetEventAction | EditEventAction;
+export type EventAction = CreateEventAction | DeleteEventAction | GetEventsAction | EditEventAction;
 
 // Reservaciones
 
@@ -120,8 +117,8 @@ export type reservation = {
     id: number;
     quantity: number;
     boughtTime: Date;
-    customerId: number;
-    eventid: number;
+    customerId?: number;
+    eventid?: number;
     reservationEvent?: event;
     reservationCustomer?: customer
 }
@@ -133,6 +130,7 @@ export interface ReservationState {
 
 interface GetReservationsAction {
     type: typeof GET_RESERVATIONS;
+    reservations: reservation[];
 }
 interface DeleteReservationAction {
     type: typeof DELETE_RESERVATION;

@@ -1,5 +1,4 @@
 import { AlertState, AlertAction, SET_ALERT, CLOSE_ALERT } from "../types";
-import { Reducer } from "redux"
 
 const initialState: AlertState = {
     color: "",
@@ -9,8 +8,6 @@ const initialState: AlertState = {
 
 
 const alertReducer = (state = initialState, action: AlertAction): AlertState => {
-
-
     switch (action.type) {
         case SET_ALERT:
             return {
@@ -25,7 +22,6 @@ const alertReducer = (state = initialState, action: AlertAction): AlertState => 
             }
         default: return state;
     }
-
 }
 
 export default alertReducer;

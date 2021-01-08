@@ -1,10 +1,17 @@
 import React, { FC, Fragment } from 'react'
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
+
+
+import { reservation } from '../../../store/types';
 
 const ReservationTable: FC = () => {
+    const allReservations: reservation[] = useSelector((state: RootState) => state.reservation.reservations);
+
     return (
         <Fragment>
-
             <div className="table-responsive">
+                {allReservations[0].reservationCustomer?.name}
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
