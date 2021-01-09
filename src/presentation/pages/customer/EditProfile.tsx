@@ -1,53 +1,92 @@
-import React, { FC, Fragment } from 'react'
-
+import React, { FC, FormEvent, useState } from 'react'
+import { customer } from "../../../store/types"
+import { editCustomerAction } from "../../../store/actions/customerActions";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 const EditProfile: FC = () => {
+    const dispatch = useDispatch();
+    const customerProfile = useSelector((state: RootState) => state.customer.customer);
+
+
+
+    const initialForm: customer = {
+        id: customerProfile.id,
+        name: customerProfile.name,
+        lastname: customerProfile.lastname,
+
+        dni: customerProfile.dni,
+        email: customerProfile.email
+    }
+
+    const [formInfo, setFormInfo] = useState<customer>(initialForm);
+
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(editCustomerAction(formInfo))
+    }
+
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let target = e.target;
+        let value = target.value;
+        let name = target.name;
+
+        const partial = {
+            ...formInfo,
+            [name]: value
+        };
+
+        setFormInfo(partial);
+    }
+
+
+
     return (
-        <Fragment>
+        <form onSubmit={handleSubmit} className="form-container">
+            <h1>Registrate</h1>
+            <div className="form-group">
+                <label>Nombre</label>
+                <input onChange={handleInputChange} required name="name" type="text" value={formInfo.name} className="form-control"
+                    placeholder="Nombre" />
 
-            <form className="form-container">
-                <h1>Editar mi Perfil</h1>
-                <div className="form-group">
-                    <label>Nombre</label>
-                    <input type="text" className="form-control"
-                        placeholder="Enter email" />
+            </div>
 
-                </div>
+            <div className="form-group">
+                <label>Apellido</label>
+                <input onChange={handleInputChange} required name="lastname" value={formInfo.lastname} type="text" className="form-control"
+                    placeholder="Apellido" />
 
-                <div className="form-group">
-                    <label>Apellido</label>
-                    <input type="text" className="form-control"
-                        placeholder="Enter email" />
+            </div>
 
-                </div>
+            <div className="form-group">
+                <label>DNI</label>
+                <input onChange={handleInputChange} required name="dni" value={formInfo.dni} type="text" className="form-control"
+                    placeholder="DNI" />
 
-                <div className="form-group">
-                    <label>DNI</label>
-                    <input type="text" className="form-control"
-                        placeholder="Enter email" />
+            </div>
 
-                </div>
+            <div className="form-group">
+                <label>Correo Electronico</label>
+                <input onChange={handleInputChange} required name="email" value={formInfo.email} type="email" className="form-control" aria-describedby="emailHelp"
+                    placeholder="Correo Electronico" />
+                <small className="form-text text-muted">Garantizamos que vendemos tus datos admenos 3% menos que la
+          competencia</small>
+            </div>
+            <div className="form-check">
+                <input onChange={handleInputChange} type="checkbox" className="form-check-input" />
+                <label className="form-check-label" >Acepto el correo Spam</label>
+            </div>
+            <div className="form-footer">
+                <button type="submit" className="btn btn-primary">Editar</button>
 
-                <div className="form-group">
-                    <label>Correo Electronico</label>
-                    <input type="email" className="form-control" aria-describedby="emailHelp"
-                        placeholder="Enter email" />
-                    <small id="emailHelp" className="form-text text-muted">Garantizamos que vendemos tus datos admenos 3% menos que la
-competencia</small>
-                </div>
-                <div className="form-group">
-                    <label >Contraseña</label>
-                    <input type="password" className="form-control" placeholder="Password" />
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" >Acepto el correo Spam</label>
-                </div>
+            </div>
+        </form>
 
-                <button type="submit" className="btn btn-primary">Registrarme</button>
-            </form>
-        </Fragment>
+
     );
 }
 

@@ -1,8 +1,11 @@
 import React, { FC, Fragment } from 'react'
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 import { Link } from "react-router-dom"
 
 const Profile: FC = () => {
+
+    const customerProfile = useSelector((state: RootState) => state.customer.customer);
     return (
         <Fragment>
             <div className="card-container">
@@ -15,16 +18,16 @@ const Profile: FC = () => {
 
                 <div className="mt-4">
                     <p>
-                        <b className="pr-1">Nombre:</b> Wilfredo Hernandez
-                </p>
+                        <b className="pr-1">Nombre:</b>{customerProfile.name}
+                    </p>
                     <p>
-                        <b className="pr-1">Apellidos:</b>Hernandez Argueta
-                </p>
+                        <b className="pr-1">Apellidos:</b>{customerProfile.lastname}
+                    </p>
                     <p>
-                        <b className="pr-1">Correo Electronico:</b> Misupercorreo@mail.xyz
-                </p>
+                        <b className="pr-1">Correo Electronico:</b> {customerProfile.email}
+                    </p>
 
-                    <p> <b className="pr-1">DNI:</b>t445154-4</p>
+                    <p> <b className="pr-1">DNI:</b>{customerProfile.dni}</p>
 
 
                 </div>

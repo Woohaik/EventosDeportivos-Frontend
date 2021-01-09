@@ -5,6 +5,7 @@ export const DELETE_EVENT = "DELETE_EVENT";
 
 
 export const LOGIN_CUSTOMER = "LOGIN_CUSTOMER";
+export const LOGOUT_CUSTOMER = "LOGOUT_CUSTOMER";
 export const REFRESH_CUSTOMER = "REFRESH_CUSTOMER"; // TODO
 
 
@@ -56,6 +57,8 @@ export type toRegisterCustomer =
     }
 
 
+
+
 interface RegisterCustomerAction {
     type: typeof REGISTER_CUSTOMER;
     toRegisterCustomer: toRegisterCustomer;
@@ -68,17 +71,21 @@ interface LoginCustomerAction {
 
 interface EditCustomerAction {
     type: typeof EDIT_CUSTOMER;
-    toUEditCustomer: toRegisterCustomer;
+    toEditCustomer: customer;
 }
 
 interface DeleteCustomerAction {
     type: typeof DELETE_CUSTOMER;
 }
+interface LogoutCustomerAction {
+    type: typeof LOGOUT_CUSTOMER;
+}
 
-export type CustomerAction = RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction;
+export type CustomerAction = LogoutCustomerAction | RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction;
 
 export interface CustomerState {
     customer: customer; token: string;
+
 }
 
 // Eventos

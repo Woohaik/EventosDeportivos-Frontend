@@ -1,12 +1,14 @@
-import { CustomerAction, toRegisterCustomer, tologinCustomer, LOGIN_CUSTOMER, logedCustomer } from "../types";
+import { CustomerAction, toRegisterCustomer, tologinCustomer, LOGIN_CUSTOMER, logedCustomer, LOGOUT_CUSTOMER, customer, EDIT_CUSTOMER, DELETE_CUSTOMER } from "../types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "..";
 import axiosHttp from "./http";
 import store from "../../store"
+import { isJwtExpired } from "../../utils"
 
 import { setAlert, setErrorEx } from "./alertActions";
 
 
+import history from "../../router/history"
 
 
 
@@ -25,16 +27,15 @@ export const registerCustomerAction = (customer: toRegisterCustomer): ThunkActio
 }
 
 
-export const loginCustomerAction = (customer: tologinCustomer): ThunkAction<void, RootState, null, CustomerAction> => {
+export const editCustomerAction = (customer: customer): ThunkAction<void, RootState, null, CustomerAction> => {
     return async (dispatch) => {
+
         try {
-            const theCusomer = await axiosHttp.post("/login", customer);
-            const authResponse: logedCustomer = { ...theCusomer.data }
+            console.log(customer);
+            await axiosHttp.put(`/customer/${customer.id}`, customer);
+            dispatch({ type: EDIT_CUSTOMER, toEditCustomer: customer });
 
-            console.log(authResponse);
-            dispatch(setAlert("Inicio de sesion correcto", "success"));
-            dispatch({ type: LOGIN_CUSTOMER, logedCustomer: authResponse });
-
+            dispatch(setAlert("Usuario Editado", "success"));
         } catch (error: any) {
             dispatch(setErrorEx(error));
         }
@@ -42,26 +43,73 @@ export const loginCustomerAction = (customer: tologinCustomer): ThunkAction<void
 }
 
 
-export const startAppValidations = () => {
-    //  Revisa por token 
-    // store.getState().customer.token
+export const loginCustomerAction = (customer: tologinCustomer): ThunkAction<void, RootState, null, CustomerAction> => {
+    return async (dispatch) => {
+        try {
+            const theCusomer = await axiosHttp.post("/login", customer);
+            const authResponse: logedCustomer = { ...theCusomer.data }
+            console.log(authResponse);
+            dispatch(setAlert("Inicio de sesion correcto", "success"));
+            dispatch({ type: LOGIN_CUSTOMER, logedCustomer: authResponse });
+            history.push("/");
 
-    //no esta vencia usa este
-
-    // ESTA VENCIdo
-    // buscar token en local-stora
-
-    // NO ESTA VENCIA- USA ESTA
-    // ESTA VENCIDA  - REVISA POR REFRESH Token
-    // ESTA VENCIA - (toca logerar ni modo)
-    // No esta , manda a pedir nuevas tokens
-
-
-    // E - Revisa si esta vencida
-    // E - SE BORRA Y TOCA LOGEAR
-    // N - PIDE EL NUEVO USUARIO con la token 
-
-
-
-
+        } catch (error: any) {
+            dispatch(setErrorEx(error));
+        }
+    }
 }
+
+export const logoutCustomerAction = (): ThunkAction<void, RootState, null, CustomerAction> => {
+    return async (dispatch) => {
+        dispatch(setAlert("Sesion cerrada", "success"));
+        dispatch({ type: LOGOUT_CUSTOMER });
+    }
+}
+
+
+export const deleteCustomerAction = (id: number): ThunkAction<void, RootState, null, CustomerAction> => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: DELETE_CUSTOMER });
+        } catch (error) {
+            dispatch(setErrorEx(error));
+        }
+
+    }
+}
+
+
+export const startAppValidations = async () => {
+    //  Revisa por token 
+    try {
+
+        let storageRefreshToken: any = localStorage.getItem("customer-refresh-token") || "";
+        let tokenToDecode = store.getState().customer.token;
+        if (!tokenToDecode) throw new Error("No hay token a loguerse");
+        let isExpired = isJwtExpired(tokenToDecode);
+
+        if (!isExpired) {
+            // Usa este
+            axiosHttp.defaults.headers.common["sportToken"] = store.getState().customer.token;
+            let res = await axiosHttp.post("/auth")
+            console.log(res);
+        } else {
+            // vamos por el refresh token
+            let isRefreshExpired = isJwtExpired(storageRefreshToken);
+            console.log("A Refrescar Tokens");
+            console.log(isRefreshExpired);
+            if (isRefreshExpired) throw new Error("No hay refresh valida ni modo a logear");
+            // Se pide authenticacion con la refresh
+            axiosHttp.defaults.headers.common["sportToken"] = storageRefreshToken;
+            let res = await axiosHttp.post("/refresh")
+            console.log(res);
+            localStorage.setItem("customer-refresh-token", res.data.refreshToken);
+            localStorage.setItem("customer-token", res.data.token);
+
+        }
+    } catch (error) {
+        console.log(error.response || error.message);
+
+    }
+}
+
