@@ -3,17 +3,11 @@ import { toRegisterCustomer } from "../../store/types"
 import { Link } from "react-router-dom";
 import { registerCustomerAction } from "../../store/actions/customerActions";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
 
 const Register: FC = () => {
-    let toEditEvent = useSelector((state: RootState) => state.event.events);
 
 
-    console.log(toEditEvent);
-
-
-
+    const dispatch = useDispatch();
     const initialForm: toRegisterCustomer = {
         name: "wilfredo",
         lastname: "Mangote",
@@ -26,7 +20,7 @@ const Register: FC = () => {
     const [formInfo, setFormInfo] = useState<toRegisterCustomer>(initialForm);
 
 
-    const dispatch = useDispatch();
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(registerCustomerAction(formInfo))

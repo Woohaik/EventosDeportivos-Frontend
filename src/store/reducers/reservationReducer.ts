@@ -16,10 +16,9 @@ const reservationReducer = (state: ReservationState = initialState, action: Rese
 
             let newStateReservation: reservation[] = state.reservations.map(el => el);
             let deletedIndex: number = newStateReservation.findIndex(el => el.id === action.id);
-            console.log(newStateReservation);
+
 
             newStateReservation.splice(deletedIndex, 1);
-            console.log(newStateReservation);
 
             return {
                 reservations: newStateReservation

@@ -19,8 +19,6 @@ export const setAlert = (message: string, color: string): ThunkAction<void, Root
 
 export const setErrorEx = (error: any): ThunkAction<void, RootState, null, AlertAction> => {
     return async (dispatch) => {
-        console.log(error.response);
-        console.log(error.message);
         let theEx: any = "";
         if (error.response) theEx = error.response.data.exList.length === 0 ? error.response.data.mainMessage : error.response.data.exList[0];
         else theEx = error.message;

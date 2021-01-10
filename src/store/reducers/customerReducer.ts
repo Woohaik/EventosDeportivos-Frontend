@@ -1,4 +1,4 @@
-import { CustomerState, CustomerAction, EDIT_CUSTOMER, LOGIN_CUSTOMER, DELETE_CUSTOMER, LOGOUT_CUSTOMER } from "../types";
+import { CustomerState, CustomerAction, EDIT_CUSTOMER, LOGIN_CUSTOMER, DELETE_CUSTOMER, LOGOUT_CUSTOMER, REFRESH_CUSTOMER } from "../types";
 import { isJwtExpired } from "../../utils"
 
 
@@ -20,9 +20,10 @@ const customerReducer = (state: CustomerState = initialState, action: CustomerAc
         case LOGIN_CUSTOMER:
             localStorage.setItem("customer-token", action.logedCustomer.token);
             localStorage.setItem("customer-refresh-token", action.logedCustomer.refreshToken);
+
             state.token = action.logedCustomer.token;
             state.customer = action.logedCustomer.customer;
-            console.log(state);
+
             return state;
         case EDIT_CUSTOMER:
             state.customer = action.toEditCustomer

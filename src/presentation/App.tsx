@@ -4,11 +4,16 @@ import RouterView from "./RouterView"
 import NavBar from "./components/Navbar";
 import history from '../router/history';
 import Alert from "./components/Alert"
-import { startAppValidations } from "../store/actions/customerActions";
+import { authCustomerAction } from "../store/actions/customerActions";
+import { useDispatch } from "react-redux";
+
 
 
 const App: FC = () => {
-  startAppValidations()
+  const dispatch = useDispatch();
+  dispatch(authCustomerAction())
+
+
   return (
     <Fragment >
       <Router history={history}>

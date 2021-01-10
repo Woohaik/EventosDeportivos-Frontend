@@ -8,13 +8,17 @@ import { useDispatch } from "react-redux";
 
 const EditProfile: FC = () => {
     const dispatch = useDispatch();
+
+
     const customerProfile = useSelector((state: RootState) => state.customer.customer);
+    const name = useSelector((state: RootState) => state.customer.customer.name);
+
 
 
 
     const initialForm: customer = {
         id: customerProfile.id,
-        name: customerProfile.name,
+        name: name,
         lastname: customerProfile.lastname,
 
         dni: customerProfile.dni,
@@ -50,28 +54,28 @@ const EditProfile: FC = () => {
             <h1>Editar Perfil</h1>
             <div className="form-group">
                 <label>Nombre</label>
-                <input onChange={handleInputChange} required name="name" type="text" value={formInfo.name} className="form-control"
+                <input onChange={handleInputChange} required name="name" type="text" value={customerProfile.name} className="form-control"
                     placeholder="Nombre" />
 
             </div>
 
             <div className="form-group">
                 <label>Apellido</label>
-                <input onChange={handleInputChange} required name="lastname" value={formInfo.lastname} type="text" className="form-control"
+                <input onChange={handleInputChange} required name="lastname" value={customerProfile.lastname} type="text" className="form-control"
                     placeholder="Apellido" />
 
             </div>
 
             <div className="form-group">
                 <label>DNI</label>
-                <input onChange={handleInputChange} required name="dni" value={formInfo.dni} type="text" className="form-control"
+                <input onChange={handleInputChange} required name="dni" value={customerProfile.dni} type="text" className="form-control"
                     placeholder="DNI" />
 
             </div>
 
             <div className="form-group">
                 <label>Correo Electronico</label>
-                <input onChange={handleInputChange} required name="email" value={formInfo.email} type="email" className="form-control" aria-describedby="emailHelp"
+                <input onChange={handleInputChange} required name="email" value={customerProfile.email} type="email" className="form-control" aria-describedby="emailHelp"
                     placeholder="Correo Electronico" />
 
             </div>

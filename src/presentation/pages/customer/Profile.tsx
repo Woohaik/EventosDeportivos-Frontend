@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC, Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 import { Link } from "react-router-dom"
@@ -9,6 +9,12 @@ const Profile: FC = () => {
 
     const customerProfile = useSelector((state: RootState) => state.customer.customer);
     const name = useSelector((state: RootState) => state.customer.customer.name);
+
+
+
+
+
+
     return (
         <Fragment>
             <div className="card-container">

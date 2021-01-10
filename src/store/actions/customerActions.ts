@@ -1,4 +1,4 @@
-import { CustomerAction, toRegisterCustomer, tologinCustomer, LOGIN_CUSTOMER, logedCustomer, LOGOUT_CUSTOMER, customer, EDIT_CUSTOMER, DELETE_CUSTOMER } from "../types";
+import { CustomerAction, toRegisterCustomer, tologinCustomer, LOGIN_CUSTOMER, logedCustomer, LOGOUT_CUSTOMER, customer, EDIT_CUSTOMER, DELETE_CUSTOMER, REFRESH_CUSTOMER, AUTH_CUSTOMER } from "../types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "..";
 import axiosHttp from "./http";
@@ -17,8 +17,8 @@ export const registerCustomerAction = (customer: toRegisterCustomer): ThunkActio
     return async (dispatch) => {
 
         try {
-            const theCusomer = await axiosHttp.post("/customer", customer);
-            console.log(theCusomer);
+            await axiosHttp.post("/customer", customer);
+
             dispatch(setAlert("Usuario Registrado", "success"));
             history.push("/");
 
@@ -33,7 +33,7 @@ export const editCustomerAction = (customer: customer): ThunkAction<void, RootSt
     return async (dispatch) => {
 
         try {
-            console.log(customer);
+
 
             await axiosHttp.put(`/customer/${customer.id}`, customer);
             dispatch({ type: EDIT_CUSTOMER, toEditCustomer: customer });
@@ -51,7 +51,7 @@ export const loginCustomerAction = (customer: tologinCustomer): ThunkAction<void
         try {
             const theCusomer = await axiosHttp.post("/login", customer);
             const authResponse: logedCustomer = { ...theCusomer.data }
-            console.log(authResponse);
+
             dispatch(setAlert("Inicio de sesion correcto", "success"));
             dispatch({ type: LOGIN_CUSTOMER, logedCustomer: authResponse });
             history.push("/");
@@ -86,53 +86,49 @@ export const deleteCustomerAction = (id: number = 0): ThunkAction<void, RootStat
 }
 
 
-
-
-
-
-export const startAppValidations = async () => {
+export const authCustomerAction = (id: number = 0): ThunkAction<void, RootState, null, CustomerAction> => {
     //  Revisa por token 
-    try {
+    return async (dispatch) => {
+        try {
 
-        let storageRefreshToken: any = localStorage.getItem("customer-refresh-token") || "";
-        let tokenToDecode = store.getState().customer.token;
-        if (!tokenToDecode) throw new Error("No hay token a loguerse");
-        let isExpired = isJwtExpired(tokenToDecode);
+            let storageRefreshToken: any = localStorage.getItem("customer-refresh-token") || "";
+            let tokenToDecode = localStorage.getItem("customer-token") || "";
+            if (!tokenToDecode) throw new Error("No hay token a loguerse");
 
-        if (!isExpired) {
-            // Usa este
-            axiosHttp.defaults.headers.common["sportToken"] = store.getState().customer.token;
-            let res = await axiosHttp.post("/auth");
-            store.getState().customer.token = res.data.token;
-            store.getState().customer.customer = res.data.customer;
-            localStorage.setItem("customer-token", res.data.token);
-            console.log(store.getState().customer);
-            console.log(res);
-        } else {
             // vamos por el refresh token
             let isRefreshExpired = isJwtExpired(storageRefreshToken);
+
             console.log("A Refrescar Tokens");
-            console.log(isRefreshExpired);
             if (isRefreshExpired) throw new Error("No hay refresh valida ni modo a logear");
             // Se pide authenticacion con la refresh
             axiosHttp.defaults.headers.common["sportToken"] = storageRefreshToken;
+
+
             let res = await axiosHttp.post("/refresh")
+
             axiosHttp.defaults.headers.common["sportToken"] = res.data.token;
-            console.log(res);
-            localStorage.setItem("customer-refresh-token", res.data.refreshToken);
-            localStorage.setItem("customer-token", res.data.token);
-            store.getState().customer.token = res.data.token;
-            store.getState().customer.customer = res.data.customer;
+
+
+            const authResponse: logedCustomer = { ...res.data }
+
+
+            dispatch({ type: LOGIN_CUSTOMER, logedCustomer: authResponse });
+
+
+
+        } catch (error) {
+            console.log(error);
+
+            console.log(error.response || error.message);
+
+
         }
-    } catch (error) {
-        console.log(error.response || error.message);
-
-
-
-
 
     }
 }
+
+
+
 
 
 

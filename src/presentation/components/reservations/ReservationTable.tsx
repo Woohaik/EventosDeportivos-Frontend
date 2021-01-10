@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 const ReservationTable: FC = () => {
     const dispatch = useDispatch();
     const allReservations: reservation[] = useSelector((state: RootState) => state.reservation.reservations);
-    console.log(allReservations);
 
     return (
         <Fragment>

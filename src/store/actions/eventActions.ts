@@ -27,11 +27,6 @@ interface eventResponse {
 
 
 export const filterEvents = (type: any, name: string): EventAction => {
-
-
-    console.log(name);
-
-
     return {
         type: FILTER_EVENTS,
         by: Eventtype[type] || 0,
@@ -58,10 +53,6 @@ export const getEventsAction = (): ThunkAction<void, RootState, null, EventActio
             }))
 
 
-            console.log(events);
-
-            //   let events = fakeEvents;
-
             dispatch({ type: GET_EVENTS, events });
 
 
@@ -75,8 +66,8 @@ export const getEventsAction = (): ThunkAction<void, RootState, null, EventActio
 export const createEventAction = (event: event): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
-            const response = await axiosHttp.post("/event", event);
-            console.log(response);
+            await axiosHttp.post("/event", event);
+
 
             dispatch(setAlert("Evento Creado", "success"));
             history.push("/eventos");
@@ -90,8 +81,8 @@ export const createEventAction = (event: event): ThunkAction<void, RootState, nu
 export const editEventAction = (id: number, event: event): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
-            const response = await axiosHttp.put(`/event/${id}`, event);
-            console.log(response);
+            await axiosHttp.put(`/event/${id}`, event);
+
 
             dispatch(setAlert("Evento Editado", "success"));
 
@@ -107,8 +98,8 @@ export const editEventAction = (id: number, event: event): ThunkAction<void, Roo
 export const deleteEventAction = (id: number): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
-            const response = await axiosHttp.delete(`/event/${id}`);
-            console.log(response);
+            await axiosHttp.delete(`/event/${id}`);
+
             dispatch(setAlert("Evento Borrado", "success"));
             dispatch({ type: DELETE_EVENT, id });
         } catch (error: any) {

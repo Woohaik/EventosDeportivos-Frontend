@@ -7,13 +7,14 @@ export const FILTER_EVENTS = "FILTER_EVENTS";
 
 export const LOGIN_CUSTOMER = "LOGIN_CUSTOMER";
 export const LOGOUT_CUSTOMER = "LOGOUT_CUSTOMER";
-export const REFRESH_CUSTOMER = "REFRESH_CUSTOMER"; // TODO
+export const REFRESH_CUSTOMER = "REFRESH_CUSTOMER";
+export const AUTH_CUSTOMER = "AUTH_CUSTOMER";
 
 
-export const GET_CUSTOMER = "GET_CUSTOMER"; // TODO
+export const GET_CUSTOMER = "GET_CUSTOMER";
 export const REGISTER_CUSTOMER = "REGISTER_CUSTOMER";
 export const EDIT_CUSTOMER = "EDIT_CUSTOMER";
-export const DELETE_CUSTOMER = "DELETE_CUSTOMER"; // TODO
+export const DELETE_CUSTOMER = "DELETE_CUSTOMER";
 
 
 export const CREATE_RESERVATION = "CREATE_RESERVATION";
@@ -60,6 +61,7 @@ export type toRegisterCustomer =
 
 
 
+
 interface RegisterCustomerAction {
     type: typeof REGISTER_CUSTOMER;
     toRegisterCustomer: toRegisterCustomer;
@@ -69,6 +71,12 @@ interface LoginCustomerAction {
     type: typeof LOGIN_CUSTOMER;
     logedCustomer: logedCustomer;
 }
+
+interface RefreshCustomerAction {
+    type: typeof REFRESH_CUSTOMER;
+    logedCustomer: logedCustomer;
+}
+
 
 interface EditCustomerAction {
     type: typeof EDIT_CUSTOMER;
@@ -82,7 +90,7 @@ interface LogoutCustomerAction {
     type: typeof LOGOUT_CUSTOMER;
 }
 
-export type CustomerAction = LogoutCustomerAction | RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction;
+export type CustomerAction = LogoutCustomerAction | RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction | RefreshCustomerAction;
 
 export interface CustomerState {
     customer: customer; token: string;

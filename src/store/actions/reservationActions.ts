@@ -1,4 +1,4 @@
-import { ReservationAction, GET_RESERVATIONS, Eventtype, DELETE_RESERVATION } from "../types";
+import { ReservationAction, GET_RESERVATIONS, DELETE_RESERVATION } from "../types";
 
 import { reservation } from "../types"
 
@@ -48,7 +48,7 @@ export const getReservationsAction = (): ThunkAction<void, RootState, null, Rese
 
             const res: Reservation[] = reservations.data;
 
-            console.log(res);
+
 
             let theReservations: reservation[] = res.map((reser): reservation => {
                 return {
@@ -60,7 +60,6 @@ export const getReservationsAction = (): ThunkAction<void, RootState, null, Rese
                 }
             });
 
-            console.log(theReservations);
 
             dispatch({ type: GET_RESERVATIONS, reservations: theReservations });
 
@@ -94,8 +93,8 @@ export const createReservationsAction = (eventId: number, quantity: number): Thu
 export const deleteReservationsAction = (id: number): ThunkAction<void, RootState, null, ReservationAction> => {
     return async (dispatch) => {
         try {
-            const response = await axiosHttp.delete(`/reservation/${id}`);
-            console.log(response);
+            await axiosHttp.delete(`/reservation/${id}`);
+
             dispatch(setAlert("Reserva Borrada", "success"));
             dispatch({ type: DELETE_RESERVATION, id });
         } catch (error: any) {

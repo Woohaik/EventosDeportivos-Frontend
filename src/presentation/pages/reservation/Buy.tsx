@@ -82,7 +82,7 @@ const Buy: FC = (props: any) => {
             <h1>Comprar Entradas</h1>
             <div className="row mt-4">
                 <div className="col-md-6 ">
-                    <img className="img-fluid" src={imagenes[Eventtype[theEvent.eventType]
+                    <img className="img-fluid" alt={imagenes[Eventtype[theEvent.eventType]]} src={imagenes[Eventtype[theEvent.eventType]
                     ]} />
                     <div className="mt-4 row">
                         <div className="col-6">
