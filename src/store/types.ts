@@ -7,8 +7,7 @@ export const FILTER_EVENTS = "FILTER_EVENTS";
 
 export const LOGIN_CUSTOMER = "LOGIN_CUSTOMER";
 export const LOGOUT_CUSTOMER = "LOGOUT_CUSTOMER";
-export const REFRESH_CUSTOMER = "REFRESH_CUSTOMER";
-export const AUTH_CUSTOMER = "AUTH_CUSTOMER";
+
 
 
 export const GET_CUSTOMER = "GET_CUSTOMER";
@@ -72,10 +71,6 @@ interface LoginCustomerAction {
     logedCustomer: logedCustomer;
 }
 
-interface RefreshCustomerAction {
-    type: typeof REFRESH_CUSTOMER;
-    logedCustomer: logedCustomer;
-}
 
 
 interface EditCustomerAction {
@@ -90,7 +85,7 @@ interface LogoutCustomerAction {
     type: typeof LOGOUT_CUSTOMER;
 }
 
-export type CustomerAction = LogoutCustomerAction | RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction | RefreshCustomerAction;
+export type CustomerAction = LogoutCustomerAction | RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction;
 
 export interface CustomerState {
     customer: customer; token: string;

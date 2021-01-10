@@ -6,6 +6,8 @@ import { deleteReservationsAction } from "../../../store/actions/reservationActi
 import { reservation } from '../../../store/types';
 import { useDispatch } from "react-redux";
 
+import { dateFormater } from "../../../utils"
+
 const ReservationTable: FC = () => {
     const dispatch = useDispatch();
     const allReservations: reservation[] = useSelector((state: RootState) => state.reservation.reservations);
@@ -20,26 +22,29 @@ const ReservationTable: FC = () => {
                             <th scope="col">Cliente</th>
                             <th scope="col">Evento</th>
                             <th scope="col">N Tickets</th>
+                            <th scope="col">Fecha de Compra</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
 
                         {
-                            allReservations.map(reservation =>
-                            (
-                                <tr key={reservation.id}>
-                                    <td>{reservation.reservationCustomer?.name} {reservation.reservationCustomer?.lastname}</td>
-                                    <td>{reservation.reservationEvent?.name}</td>
-                                    <td>{reservation.quantity}</td>
-                                    <td>
-                                        <button onClick={() => dispatch(deleteReservationsAction(reservation.id))} className="btn btn-danger">Cancelar Reserva</button>
-                                    </td>
-                                </tr>
+                            allReservations.length === 0 ? (<h2>Aun No Hay reservas</h2>) :
+                                allReservations.map(reservation =>
+                                (
+                                    <tr key={reservation.id}>
+                                        <td>{reservation.reservationCustomer?.name} {reservation.reservationCustomer?.lastname}</td>
+                                        <td>{reservation.reservationEvent?.name}</td>
+                                        <td>{reservation.quantity}</td>
+                                        <td>{ dateFormater(reservation.boughtTime)}</td>
+                                        <td>
+                                            <button onClick={() => dispatch(deleteReservationsAction(reservation.id))} className="btn btn-danger">Cancelar Reserva</button>
+                                        </td>
+                                    </tr>
 
-                            )
+                                )
 
-                            )
+                                )
                         }
 
 

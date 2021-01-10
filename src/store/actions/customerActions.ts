@@ -1,8 +1,8 @@
-import { CustomerAction, toRegisterCustomer, tologinCustomer, LOGIN_CUSTOMER, logedCustomer, LOGOUT_CUSTOMER, customer, EDIT_CUSTOMER, DELETE_CUSTOMER, REFRESH_CUSTOMER, AUTH_CUSTOMER } from "../types";
+import { CustomerAction, toRegisterCustomer, tologinCustomer, LOGIN_CUSTOMER, logedCustomer, LOGOUT_CUSTOMER, customer, EDIT_CUSTOMER, DELETE_CUSTOMER } from "../types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "..";
 import axiosHttp from "./http";
-import store from "../../store"
+
 import { isJwtExpired } from "../../utils"
 
 import { setAlert, setErrorEx } from "./alertActions";

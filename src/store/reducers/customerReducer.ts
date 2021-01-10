@@ -1,4 +1,4 @@
-import { CustomerState, CustomerAction, EDIT_CUSTOMER, LOGIN_CUSTOMER, DELETE_CUSTOMER, LOGOUT_CUSTOMER, REFRESH_CUSTOMER } from "../types";
+import { CustomerState, CustomerAction, EDIT_CUSTOMER, LOGIN_CUSTOMER, DELETE_CUSTOMER, LOGOUT_CUSTOMER } from "../types";
 import { isJwtExpired } from "../../utils"
 
 

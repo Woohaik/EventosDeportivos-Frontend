@@ -8,7 +8,7 @@ import BALONCESTO from "./../../../assets/deportes/baloncesto.jpg";
 import VOLEIBOL from "./../../../assets/deportes/voleibol.jpg";
 import ATLETISMO from "./../../../assets/deportes/atletismo.jpg";
 
-
+import history from "../../../router/history"
 
 import { dateFormater } from "../../../utils"
 
@@ -29,7 +29,10 @@ const EventCard: FC<ICardProps> = (props: ICardProps) => {
 
     return (
         <div className="card event-card">
-            <img className="card-img-top" src={imagenes[eventtype]}
+
+
+
+            <img onClick={() => {history.push(`/comprar/${props.event.id}`)}} className="card-img-top" src={imagenes[eventtype]}
                 alt={Eventtype[props.event.eventType]} />
             <div className="card-body event-card__body">
                 <h5 className="card-title">{props.event.name}</h5>
