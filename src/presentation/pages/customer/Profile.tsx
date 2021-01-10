@@ -8,6 +8,7 @@ const Profile: FC = () => {
     const dispatch = useDispatch();
 
     const customerProfile = useSelector((state: RootState) => state.customer.customer);
+    const name = useSelector((state: RootState) => state.customer.customer.name);
     return (
         <Fragment>
             <div className="card-container">
@@ -20,7 +21,7 @@ const Profile: FC = () => {
 
                 <div className="mt-4">
                     <p>
-                        <b className="pr-1">Nombre:</b>{customerProfile.name}
+                        <b className="pr-1">Nombre:</b>{name}
                     </p>
                     <p>
                         <b className="pr-1">Apellidos:</b>{customerProfile.lastname}

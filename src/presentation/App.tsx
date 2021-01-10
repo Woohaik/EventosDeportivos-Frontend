@@ -4,7 +4,11 @@ import RouterView from "./RouterView"
 import NavBar from "./components/Navbar";
 import history from '../router/history';
 import Alert from "./components/Alert"
+import { startAppValidations } from "../store/actions/customerActions";
+
+
 const App: FC = () => {
+  startAppValidations()
   return (
     <Fragment >
       <Router history={history}>

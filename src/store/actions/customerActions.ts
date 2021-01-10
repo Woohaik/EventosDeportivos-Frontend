@@ -86,6 +86,10 @@ export const deleteCustomerAction = (id: number = 0): ThunkAction<void, RootStat
 }
 
 
+
+
+
+
 export const startAppValidations = async () => {
     //  Revisa por token 
     try {
@@ -98,7 +102,11 @@ export const startAppValidations = async () => {
         if (!isExpired) {
             // Usa este
             axiosHttp.defaults.headers.common["sportToken"] = store.getState().customer.token;
-            let res = await axiosHttp.post("/auth")
+            let res = await axiosHttp.post("/auth");
+            store.getState().customer.token = res.data.token;
+            store.getState().customer.customer = res.data.customer;
+            localStorage.setItem("customer-token", res.data.token);
+            console.log(store.getState().customer);
             console.log(res);
         } else {
             // vamos por el refresh token
@@ -109,14 +117,25 @@ export const startAppValidations = async () => {
             // Se pide authenticacion con la refresh
             axiosHttp.defaults.headers.common["sportToken"] = storageRefreshToken;
             let res = await axiosHttp.post("/refresh")
+            axiosHttp.defaults.headers.common["sportToken"] = res.data.token;
             console.log(res);
             localStorage.setItem("customer-refresh-token", res.data.refreshToken);
             localStorage.setItem("customer-token", res.data.token);
-
+            store.getState().customer.token = res.data.token;
+            store.getState().customer.customer = res.data.customer;
         }
     } catch (error) {
         console.log(error.response || error.message);
 
+
+
+
+
     }
 }
+
+
+
+
+
 

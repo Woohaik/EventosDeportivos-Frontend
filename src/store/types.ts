@@ -2,6 +2,7 @@ export const GET_EVENTS = "GET_EVENTS";
 export const CREATE_EVENT = "CREATE_EVENT";
 export const EDIT_EVENT = "EDIT_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
+export const FILTER_EVENTS = "FILTER_EVENTS";
 
 
 export const LOGIN_CUSTOMER = "LOGIN_CUSTOMER";
@@ -109,6 +110,7 @@ export type event = {
 
 export interface EventState {
     events: event[];
+    filteredEvents: event[];
 }
 
 interface CreateEventAction {
@@ -128,7 +130,13 @@ interface GetEventsAction {
     events: event[];
 }
 
-export type EventAction = CreateEventAction | DeleteEventAction | GetEventsAction | EditEventAction;
+interface FilterEvents {
+    type: typeof FILTER_EVENTS;
+    by: any;
+    name: string;
+}
+
+export type EventAction = CreateEventAction | DeleteEventAction | GetEventsAction | EditEventAction | FilterEvents;
 
 // Reservaciones
 

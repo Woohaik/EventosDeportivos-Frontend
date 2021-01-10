@@ -8,7 +8,9 @@ import axiosHttp from "./http";
 
 import { setAlert, setErrorEx } from "./alertActions";
 
+import history from "../../router/history";
 
+import store from "../../store"
 
 interface Reservation {
     id: number;
@@ -68,10 +70,20 @@ export const getReservationsAction = (): ThunkAction<void, RootState, null, Rese
     }
 }
 
-export const createReservationsAction = (reservation: reservation): ThunkAction<void, RootState, null, ReservationAction> => {
+export const createReservationsAction = (eventId: number, quantity: number): ThunkAction<void, RootState, null, ReservationAction> => {
     return async (dispatch) => {
         try {
+
+            const reservation = {
+                customerId: store.getState().customer.customer.id,
+                eventId,
+                quantity
+            }
+
+            await axiosHttp.post(`/reservation`, reservation);
+
             dispatch(setAlert("Compra Realizada", "success"));
+            history.push("/");
         } catch (error: any) {
             dispatch(setErrorEx(error));
         }

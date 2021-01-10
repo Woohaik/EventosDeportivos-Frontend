@@ -8,7 +8,10 @@ import { useSelector } from "react-redux";
 
 
 const CardBlock: FC = () => {
-    const allTheEvents = useSelector((state: RootState) => state.event.events);
+    const allTheEvents = useSelector((state: RootState) => state.event.filteredEvents);
+
+    
+
     return (
         <Fragment>
             {

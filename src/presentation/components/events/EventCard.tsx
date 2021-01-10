@@ -2,7 +2,7 @@
 
 import React, { FC } from 'react';
 import { event, Eventtype } from "../../../store/types";
-
+import { Link } from "react-router-dom";
 import FUTBOL from "./../../../assets/deportes/futbol.jpg";
 import BALONCESTO from "./../../../assets/deportes/baloncesto.jpg";
 import VOLEIBOL from "./../../../assets/deportes/voleibol.jpg";
@@ -47,7 +47,8 @@ const EventCard: FC<ICardProps> = (props: ICardProps) => {
 
                     </span>
                 </p>
-                <a href="/" className="btn btn-primary">Comprar</a>
+                <Link className="btn btn-primary" to={`comprar/${props.event.id}`}>Comprar</Link>
+
             </div>
         </div>
     );

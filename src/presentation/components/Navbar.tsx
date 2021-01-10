@@ -36,7 +36,12 @@ const Navbar: FC = () => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <Link className="nav-item nav-link active" to="/">Home</Link>
-                        <Link className="nav-item nav-link active" to="/todas-reservas">Reservas</Link>
+
+                        {isLogged(customerToken) ? (<Link className="nav-item nav-link active" to="/todas-reservas">Reservas</Link>) : (<div></div>)}
+
+
+
+
                     </div>
 
                     {!isLogged(customerToken) ? (<div className="navbar-nav  ml-auto">

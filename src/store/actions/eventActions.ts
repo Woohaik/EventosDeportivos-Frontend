@@ -1,5 +1,5 @@
 // Actions
-import { EventAction, GET_EVENTS, DELETE_EVENT } from "../types";
+import { EventAction, GET_EVENTS, DELETE_EVENT, FILTER_EVENTS, Eventtype } from "../types";
 // Event Types
 import { event } from "../types"
 
@@ -23,6 +23,21 @@ interface eventResponse {
     eventType: number;
 }
 
+
+
+
+export const filterEvents = (type: any, name: string): EventAction => {
+
+
+    console.log(name);
+
+
+    return {
+        type: FILTER_EVENTS,
+        by: Eventtype[type] || 0,
+        name
+    }
+}
 
 
 

@@ -47,7 +47,7 @@ const EditProfile: FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className="form-container">
-            <h1>Registrate</h1>
+            <h1>Editar Perfil</h1>
             <div className="form-group">
                 <label>Nombre</label>
                 <input onChange={handleInputChange} required name="name" type="text" value={formInfo.name} className="form-control"
@@ -73,13 +73,9 @@ const EditProfile: FC = () => {
                 <label>Correo Electronico</label>
                 <input onChange={handleInputChange} required name="email" value={formInfo.email} type="email" className="form-control" aria-describedby="emailHelp"
                     placeholder="Correo Electronico" />
-                <small className="form-text text-muted">Garantizamos que vendemos tus datos admenos 3% menos que la
-          competencia</small>
+
             </div>
-            <div className="form-check">
-                <input onChange={handleInputChange} type="checkbox" className="form-check-input" />
-                <label className="form-check-label" >Acepto el correo Spam</label>
-            </div>
+
             <div className="form-footer">
                 <button type="submit" className="btn btn-primary">Editar</button>
 
