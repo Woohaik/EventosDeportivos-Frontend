@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 const Register: FC = () => {
 
 
+    const dispatch = useDispatch();
     const initialForm: toRegisterCustomer = {
         name: "wilfredo",
         lastname: "Mangote",
@@ -19,7 +20,7 @@ const Register: FC = () => {
     const [formInfo, setFormInfo] = useState<toRegisterCustomer>(initialForm);
 
 
-    const dispatch = useDispatch();
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(registerCustomerAction(formInfo))
@@ -42,11 +43,6 @@ const Register: FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className="form-container">
-            {formInfo.name}
-            {formInfo.lastname}
-            {formInfo.email}
-            {formInfo.dni}
-            {formInfo.password}
             <h1>Registrate</h1>
             <div className="form-group">
                 <label>Nombre</label>

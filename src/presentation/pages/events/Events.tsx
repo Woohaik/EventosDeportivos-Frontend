@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom"
 import { Dispatch } from 'redux';
 
+
 // Custom
 import { getEventsAction } from "../../../store/actions/eventActions";
 
@@ -12,6 +13,7 @@ import EventTable from "../../components/events/EventTable"
 const Events: FC = () => {
 
     const dispatch: Dispatch<any> = useDispatch();
+
     dispatch(getEventsAction());
 
     return (

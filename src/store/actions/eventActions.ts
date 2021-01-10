@@ -1,65 +1,59 @@
 // Actions
-import { EventAction, GET_EVENTS, CREATE_EVENT, EDIT_EVENT, DELETE_EVENT } from "../types";
+import { EventAction, GET_EVENTS, DELETE_EVENT, FILTER_EVENTS, Eventtype } from "../types";
 // Event Types
-import { event, Eventtype } from "../types"
+import { event } from "../types"
 
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { ThunkAction } from "redux-thunk";
 import { RootState } from "..";
 import axiosHttp from "./http";
 
 import { setAlert, setErrorEx } from "./alertActions";
 
 
-const fakeEvents: event[] = [
-    {
-        id: 1,
-        name: "Super Evento de supre event",
-        finish: new Date(),
-        start: new Date(),
-        limit: 8,
-        eventType: Eventtype.FUTBOL
-    },
-    {
-        id: 2,
-        name: "OLV ESTO ES MAS PRO",
-        finish: new Date(),
-        start: new Date(),
-        limit: 8,
-        eventType: Eventtype.ATLETISMO
-    },
-    {
-        id: 3,
-        name: "Dale bien perro",
-        finish: new Date(),
-        start: new Date(),
-        limit: 8,
-        eventType: Eventtype.FUTBOL
-    }, {
-        id: 4,
-        name: "Otro evento fake gracias",
-        finish: new Date(),
-        start: new Date(),
-        limit: 8,
-        eventType: Eventtype.VOLEIBOL
-    }, {
-        id: 5,
-        name: "Wiuwiu theLastEv",
-        finish: new Date(),
-        start: new Date(),
-        limit: 15,
-        eventType: Eventtype.BALONCESTO
+import history from "../../router/history"
+
+
+interface eventResponse {
+    id: number;
+    freeSpaces: number;
+    name: string;
+    limit: number;
+    start: Date;
+    finish: Date;
+    eventType: number;
+}
+
+
+
+
+export const filterEvents = (type: any, name: string): EventAction => {
+    return {
+        type: FILTER_EVENTS,
+        by: Eventtype[type] || 0,
+        name
     }
-]
+}
+
+
 
 
 export const getEventsAction = (): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
-            //  const theEvents = await axiosHttp.get("/event");
-            //   const events: event[] = theEvents.data;
 
-            let events: event[] = fakeEvents;
-            dispatch({ type: GET_EVENTS, events: events });
+            const theEvents = await axiosHttp.get("/event");
+            const res: eventResponse[] = theEvents.data;
+            const events: any[] = res.map(theEvent => ({
+                id: theEvent.id,
+                name: theEvent.name,
+                start: new Date(theEvent.start),
+                finish: new Date(theEvent.finish),
+                limit: theEvent.limit,
+                eventType: theEvent.eventType
+            }))
+
+
+            dispatch({ type: GET_EVENTS, events });
 
 
         } catch (error: any) {
@@ -72,7 +66,11 @@ export const getEventsAction = (): ThunkAction<void, RootState, null, EventActio
 export const createEventAction = (event: event): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
+            await axiosHttp.post("/event", event);
+
+
             dispatch(setAlert("Evento Creado", "success"));
+            history.push("/eventos");
         } catch (error: any) {
             dispatch(setErrorEx(error));
         }
@@ -80,10 +78,16 @@ export const createEventAction = (event: event): ThunkAction<void, RootState, nu
 }
 
 
-export const editEventAction = (event: event): ThunkAction<void, RootState, null, EventAction> => {
+export const editEventAction = (id: number, event: event): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
+            await axiosHttp.put(`/event/${id}`, event);
+
+
             dispatch(setAlert("Evento Editado", "success"));
+
+            history.push("/eventos");
+
         } catch (error: any) {
             dispatch(setErrorEx(error));
         }
@@ -94,7 +98,10 @@ export const editEventAction = (event: event): ThunkAction<void, RootState, null
 export const deleteEventAction = (id: number): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
+            await axiosHttp.delete(`/event/${id}`);
+
             dispatch(setAlert("Evento Borrado", "success"));
+            dispatch({ type: DELETE_EVENT, id });
         } catch (error: any) {
             dispatch(setErrorEx(error));
         }

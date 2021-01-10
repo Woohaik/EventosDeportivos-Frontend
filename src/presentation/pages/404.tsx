@@ -12,7 +12,7 @@ const T404: FC = () => {
                     404
                 </div>
                 <div className="e404_body">
-                    Pagina no Encontrada
+                    Página no Encontrada
                 </div>
             </div>
         </div>

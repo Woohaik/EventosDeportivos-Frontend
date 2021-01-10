@@ -2,16 +2,18 @@ export const GET_EVENTS = "GET_EVENTS";
 export const CREATE_EVENT = "CREATE_EVENT";
 export const EDIT_EVENT = "EDIT_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
+export const FILTER_EVENTS = "FILTER_EVENTS";
 
 
 export const LOGIN_CUSTOMER = "LOGIN_CUSTOMER";
-export const REFRESH_CUSTOMER = "REFRESH_CUSTOMER"; // TODO
+export const LOGOUT_CUSTOMER = "LOGOUT_CUSTOMER";
 
 
-export const GET_CUSTOMER = "GET_CUSTOMER"; // TODO
+
+export const GET_CUSTOMER = "GET_CUSTOMER";
 export const REGISTER_CUSTOMER = "REGISTER_CUSTOMER";
 export const EDIT_CUSTOMER = "EDIT_CUSTOMER";
-export const DELETE_CUSTOMER = "DELETE_CUSTOMER"; // TODO
+export const DELETE_CUSTOMER = "DELETE_CUSTOMER";
 
 
 export const CREATE_RESERVATION = "CREATE_RESERVATION";
@@ -38,15 +40,25 @@ export type customer = {
     email: string;
 }
 
-export type authCustomer =
-    customer & {
-        token: string;
-    }
+
+
+
+export type logedCustomer = {
+    customer: customer;
+    token: string;
+    refreshToken: string;
+}
+
+
 
 export type toRegisterCustomer =
     customer & {
         password: string;
+
     }
+
+
+
 
 
 interface RegisterCustomerAction {
@@ -56,18 +68,28 @@ interface RegisterCustomerAction {
 
 interface LoginCustomerAction {
     type: typeof LOGIN_CUSTOMER;
-    tologinCustomer: tologinCustomer;
+    logedCustomer: logedCustomer;
 }
+
+
 
 interface EditCustomerAction {
     type: typeof EDIT_CUSTOMER;
-    toUEditCustomer: toRegisterCustomer;
+    toEditCustomer: customer;
 }
 
-export type CustomerAction = RegisterCustomerAction | LoginCustomerAction | EditCustomerAction;
+interface DeleteCustomerAction {
+    type: typeof DELETE_CUSTOMER;
+}
+interface LogoutCustomerAction {
+    type: typeof LOGOUT_CUSTOMER;
+}
+
+export type CustomerAction = LogoutCustomerAction | RegisterCustomerAction | LoginCustomerAction | EditCustomerAction | DeleteCustomerAction;
 
 export interface CustomerState {
-    customer: authCustomer;
+    customer: customer; token: string;
+
 }
 
 // Eventos
@@ -91,6 +113,7 @@ export type event = {
 
 export interface EventState {
     events: event[];
+    filteredEvents: event[];
 }
 
 interface CreateEventAction {
@@ -99,6 +122,7 @@ interface CreateEventAction {
 }
 interface DeleteEventAction {
     type: typeof DELETE_EVENT;
+    id: number;
 }
 interface EditEventAction {
     type: typeof EDIT_EVENT;
@@ -109,7 +133,13 @@ interface GetEventsAction {
     events: event[];
 }
 
-export type EventAction = CreateEventAction | DeleteEventAction | GetEventsAction | EditEventAction;
+interface FilterEvents {
+    type: typeof FILTER_EVENTS;
+    by: any;
+    name: string;
+}
+
+export type EventAction = CreateEventAction | DeleteEventAction | GetEventsAction | EditEventAction | FilterEvents;
 
 // Reservaciones
 
@@ -134,6 +164,7 @@ interface GetReservationsAction {
 }
 interface DeleteReservationAction {
     type: typeof DELETE_RESERVATION;
+    id: number;
 }
 interface CreateReservationAction {
     type: typeof CREATE_RESERVATION;

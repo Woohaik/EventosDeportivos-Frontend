@@ -33,20 +33,17 @@ const Login: FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className="form-container">
-            {formInfo.email}
-            {formInfo.password}
-
             <h1>Inicia Sesion</h1>
             <div className="form-group">
-                <label>Email address</label>
+                <label>Correo Electronico</label>
                 <input required onChange={handleInputChange} value={formInfo.email} name="email" type="email" className="form-control" aria-describedby="emailHelp"
                     placeholder="Enter email" />
             </div>
+
             <div className="form-group">
-                <label >Password</label>
+                <label >Contraseña</label>
                 <input required onChange={handleInputChange} value={formInfo.password} name="password" type="password" className="form-control" placeholder="Password" />
             </div>
-
 
             <div className="form-footer">
                 <button type="submit" className="btn btn-primary">Continuar</button>

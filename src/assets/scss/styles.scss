@@ -42,6 +42,10 @@
     padding: 30px;
 }
 
+.dropdown-menu{
+    cursor: pointer;
+}
+
 .table {
     margin-top: 20px;
     text-align: center;
@@ -132,4 +136,16 @@
             top: 15px;
         }
     }
+}
+
+
+.btn{
+    min-height: 35px !important;
+}
+
+.card-title{
+    overflow: hidden;
+    max-width: 23ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

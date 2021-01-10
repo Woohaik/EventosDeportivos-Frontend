@@ -2,13 +2,13 @@
 
 import React, { FC } from 'react';
 import { event, Eventtype } from "../../../store/types";
+import { Link } from "react-router-dom";
+import FUTBOL from "./../../../assets/deportes/futbol.jpg";
+import BALONCESTO from "./../../../assets/deportes/baloncesto.jpg";
+import VOLEIBOL from "./../../../assets/deportes/voleibol.jpg";
+import ATLETISMO from "./../../../assets/deportes/atletismo.jpg";
 
-import FUTBOL from "./../../../assets/deportes/FUTBOL.jpg";
-import BALONCESTO from "./../../../assets/deportes/BALONCESTO.jpg";
-import VOLEIBOL from "./../../../assets/deportes/VOLEIBOL.jpg";
-import ATLETISMO from "./../../../assets/deportes/ATLETISMO.jpg";
-
-
+import history from "../../../router/history"
 
 import { dateFormater } from "../../../utils"
 
@@ -29,7 +29,10 @@ const EventCard: FC<ICardProps> = (props: ICardProps) => {
 
     return (
         <div className="card event-card">
-            <img className="card-img-top" src={imagenes[eventtype]}
+
+
+
+            <img onClick={() => {history.push(`/comprar/${props.event.id}`)}} className="card-img-top" src={imagenes[eventtype]}
                 alt={Eventtype[props.event.eventType]} />
             <div className="card-body event-card__body">
                 <h5 className="card-title">{props.event.name}</h5>
@@ -47,7 +50,8 @@ const EventCard: FC<ICardProps> = (props: ICardProps) => {
 
                     </span>
                 </p>
-                <a href="/" className="btn btn-primary">Comprar</a>
+                <Link className="btn btn-primary" to={`comprar/${props.event.id}`}>Comprar</Link>
+
             </div>
         </div>
     );
