@@ -1,4 +1,4 @@
-import { ReservationState, GET_RESERVATIONS, ReservationAction } from "../types";
+import { ReservationState, GET_RESERVATIONS, ReservationAction, DELETE_RESERVATION, reservation } from "../types";
 
 const initialState: ReservationState = {
     reservations: []
@@ -10,6 +10,21 @@ const reservationReducer = (state: ReservationState = initialState, action: Rese
             return {
                 reservations: action.reservations
             }
+        case DELETE_RESERVATION:
+
+
+
+            let newStateReservation: reservation[] = state.reservations.map(el => el);
+            let deletedIndex: number = newStateReservation.findIndex(el => el.id === action.id);
+            console.log(newStateReservation);
+
+            newStateReservation.splice(deletedIndex, 1);
+            console.log(newStateReservation);
+
+            return {
+                reservations: newStateReservation
+            }
+
         default: return state;
     }
 }

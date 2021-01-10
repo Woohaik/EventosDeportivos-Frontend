@@ -14,6 +14,8 @@ const EventTable: FC = () => {
     const handleCancel = (id: number = 0) => {
         dispatch(deleteEventAction(id));
     }
+
+
     return (
         <Fragment>
             <div className="table-responsive">

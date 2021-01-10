@@ -1,9 +1,11 @@
 import React, { FC, Fragment } from 'react'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 import { Link } from "react-router-dom"
+import { deleteCustomerAction } from "../../../store/actions/customerActions";
 
 const Profile: FC = () => {
+    const dispatch = useDispatch();
 
     const customerProfile = useSelector((state: RootState) => state.customer.customer);
     return (
@@ -32,7 +34,7 @@ const Profile: FC = () => {
 
                 </div>
 
-                <button className="btn btn-danger">Borrar Cuenta</button>
+                <button onClick={() => dispatch(deleteCustomerAction(customerProfile.id))} className="btn btn-danger">Borrar Cuenta</button>
             </div>
 
         </Fragment>

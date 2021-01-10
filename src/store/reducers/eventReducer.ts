@@ -16,7 +16,6 @@ const eventReducer = (state: EventState = initialState, action: EventAction): Ev
         case DELETE_EVENT:
             let newStateEvents: event[] = state.events.map(el => el);
 
-            console.log("toy aca");
 
             let deletedIndex: number = newStateEvents.findIndex(el => el.id === action.id)
             console.log(deletedIndex);

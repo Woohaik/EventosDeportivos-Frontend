@@ -20,6 +20,8 @@ export const registerCustomerAction = (customer: toRegisterCustomer): ThunkActio
             const theCusomer = await axiosHttp.post("/customer", customer);
             console.log(theCusomer);
             dispatch(setAlert("Usuario Registrado", "success"));
+            history.push("/");
+
         } catch (error: any) {
             dispatch(setErrorEx(error));
         }
@@ -32,6 +34,7 @@ export const editCustomerAction = (customer: customer): ThunkAction<void, RootSt
 
         try {
             console.log(customer);
+
             await axiosHttp.put(`/customer/${customer.id}`, customer);
             dispatch({ type: EDIT_CUSTOMER, toEditCustomer: customer });
 
@@ -67,9 +70,13 @@ export const logoutCustomerAction = (): ThunkAction<void, RootState, null, Custo
 }
 
 
-export const deleteCustomerAction = (id: number): ThunkAction<void, RootState, null, CustomerAction> => {
+export const deleteCustomerAction = (id: number = 0): ThunkAction<void, RootState, null, CustomerAction> => {
     return async (dispatch) => {
         try {
+            if (id === 0) throw new Error("No hay cliente")
+            await axiosHttp.delete(`/customer/${id}`);
+            dispatch(setAlert("Usuario Eliminado", "success"));
+            history.push("/");
             dispatch({ type: DELETE_CUSTOMER });
         } catch (error) {
             dispatch(setErrorEx(error));

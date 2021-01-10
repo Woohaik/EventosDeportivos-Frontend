@@ -153,6 +153,7 @@ interface GetReservationsAction {
 }
 interface DeleteReservationAction {
     type: typeof DELETE_RESERVATION;
+    id: number;
 }
 interface CreateReservationAction {
     type: typeof CREATE_RESERVATION;

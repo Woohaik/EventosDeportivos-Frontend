@@ -125,8 +125,8 @@ const New: FC = (props: any) => {
                     <select required value={formInfo.eventType} onChange={handleInputChange} name="eventType" className="form-control">
                         <option value="">Tipo de evento</option>
                         <option value="1">Futbol</option>
-                        <option value="2">Voleibol</option>
-                        <option value="3">Baloncesto</option>
+                        <option value="2">Baloncesto</option>
+                        <option value="3">Voleibol </option>
                         <option value="4">Atletismo</option>
                     </select>
                 </div>

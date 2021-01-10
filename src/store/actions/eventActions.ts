@@ -10,6 +10,8 @@ import axiosHttp from "./http";
 import { setAlert, setErrorEx } from "./alertActions";
 
 
+import history from "../../router/history"
+
 
 interface eventResponse {
     id: number;
@@ -28,9 +30,6 @@ interface eventResponse {
 export const getEventsAction = (): ThunkAction<void, RootState, null, EventAction> => {
     return async (dispatch) => {
         try {
-            console.log("eNTRE");
-
-
 
             const theEvents = await axiosHttp.get("/event");
             const res: eventResponse[] = theEvents.data;
@@ -65,6 +64,7 @@ export const createEventAction = (event: event): ThunkAction<void, RootState, nu
             console.log(response);
 
             dispatch(setAlert("Evento Creado", "success"));
+            history.push("/eventos");
         } catch (error: any) {
             dispatch(setErrorEx(error));
         }
@@ -80,7 +80,7 @@ export const editEventAction = (id: number, event: event): ThunkAction<void, Roo
 
             dispatch(setAlert("Evento Editado", "success"));
 
-
+            history.push("/eventos");
 
         } catch (error: any) {
             dispatch(setErrorEx(error));
@@ -94,7 +94,6 @@ export const deleteEventAction = (id: number): ThunkAction<void, RootState, null
         try {
             const response = await axiosHttp.delete(`/event/${id}`);
             console.log(response);
-
             dispatch(setAlert("Evento Borrado", "success"));
             dispatch({ type: DELETE_EVENT, id });
         } catch (error: any) {
