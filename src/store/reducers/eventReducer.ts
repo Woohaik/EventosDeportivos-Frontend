@@ -7,12 +7,8 @@ const initialState: EventState = {
 
 const eventReducer = (state: EventState = initialState, action: EventAction): EventState => {
 
-
-
     switch (action.type) {
         case FILTER_EVENTS:
-
-
 
             let filteredEvents = state.events.filter(el => el.name.toLowerCase().includes(action.name.toLowerCase()));
 

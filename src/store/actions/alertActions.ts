@@ -12,10 +12,8 @@ export const setAlert = (message: string, color: string): ThunkAction<void, Root
             color,
             payload: message,
         });
-
     }
 }
-
 
 export const setErrorEx = (error: any): ThunkAction<void, RootState, null, AlertAction> => {
     return async (dispatch) => {
